@@ -7,6 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#484E61">
+        <Button
+            android:id="@+id/swich_city"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_location_city_red_50_24dp"/>
         <TextView
             android:id="@+id/city_name"
             android:layout_width="wrap_content"
@@ -14,6 +21,15 @@
             android:layout_centerInParent="true"
             android:text="#ffffff"
             android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/refresh_weather"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_refresh_white_24dp"/>
     </RelativeLayout>
 
     <RelativeLayout

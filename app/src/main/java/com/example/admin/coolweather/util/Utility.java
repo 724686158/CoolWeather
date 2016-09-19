@@ -109,7 +109,7 @@ public class Utility {
 
     @TargetApi(Build.VERSION_CODES.N)
     private static void saveWeatherInfo(Context context, Weather weather) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日", Locale.CHINA);
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日", Locale.CHINA);
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         String w = weather.toString();
         editor.putBoolean("city_selected", true);
@@ -118,7 +118,7 @@ public class Utility {
         editor.putString("temp2", weather.getWeatherinfo().getTemp2());
         editor.putString("current_weather", weather.getWeatherinfo().getWeather());
         editor.putString("publish_time", weather.getWeatherinfo().getPtime());
-        editor.putString("current_date", sdf.format(new Date()));
+        editor.putString("current_date", String.valueOf(new Date()));
         editor.commit();
 
 
