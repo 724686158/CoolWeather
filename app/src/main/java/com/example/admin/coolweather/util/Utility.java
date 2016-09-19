@@ -1,11 +1,23 @@
 package com.example.admin.coolweather.util;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.example.admin.coolweather.db.CoolWeatherDB;
 import com.example.admin.coolweather.model.City;
 import com.example.admin.coolweather.model.County;
 import com.example.admin.coolweather.model.Province;
+import com.example.admin.coolweather.model.Weather;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by admin on 2016/9/18.
@@ -86,5 +98,29 @@ public class Utility {
             }
         }
         return false;
+    }
+    public static void handleWeatherResponse(Context context, String response)
+    {
+        Gson gson = new Gson();
+        Weather weather = gson.fromJson(response, new TypeToken<Weather>() {
+        }.getType());
+        saveWeatherInfo(context, weather);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private static void saveWeatherInfo(Context context, Weather weather) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日", Locale.CHINA);
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        String w = weather.toString();
+        editor.putBoolean("city_selected", true);
+        editor.putString("city_name", weather.getWeatherinfo().getCity());
+        editor.putString("temp1", weather.getWeatherinfo().getTemp1());
+        editor.putString("temp2", weather.getWeatherinfo().getTemp2());
+        editor.putString("current_weather", weather.getWeatherinfo().getWeather());
+        editor.putString("publish_time", weather.getWeatherinfo().getPtime());
+        editor.putString("current_date", sdf.format(new Date()));
+        editor.commit();
+
+
     }
 }
